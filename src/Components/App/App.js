@@ -3,18 +3,42 @@ import {useEffect,useState}from 'react'
 import Navbar from '../Navbar/Navbar'
 import '../../App.css';
 import { BooksList } from '../BooksList/BooksList';
+import { Sidebar } from '../Sidebar/Sidebar';
+
+
 const constants = {
   BaseURL: "https://www.googleapis.com/books/v1/volumes?",
   APIKey: "AIzaSyAWkU9uYICzpImSOiW4tN9dQut9z91Eg3g",
-};
+}
 const App=()=> {
-const [books, setBooks]=useState([]);
-const [input, setInput]=useState('');
+  const [state, setState]=useState({
+    isSearching:false,
+    active:"search",
+    books:[],
+    query:""
+  })
+
+
+
+
+const onTextChange=input=>{
+    setState({...state, isSearching:input.length > 0});
+    console.log(input.target.value); 
+}
+
+
+const handleSubmit=(e)=>{
+  e.preventDefault();
+ }
+
  useEffect(() => {
-   fetchAPI();
- },[]);
-const fetchAPI = () => {
-    const url = `${constants.BaseURL}q=harlan%20coben&projection=full&filter=paid-ebooks&key=${constants.APIKey}`;
+  fetchAPI();
+},);
+
+const fetchAPI = () => { 
+    const url = `${constants.BaseURL}q=inauthor:festy&projection=full&filter=paid-ebooks&key=${constants.APIKey}`;
+      
+console.log(url)
     fetch(url)
       .then(response => {
         if (!response.ok) {
@@ -24,10 +48,16 @@ const fetchAPI = () => {
       })
       .then(data => {
           let items= data.items
+          console.log(items)
     
-    setBooks(items);
-  console.log(items);
+    setState({
+      ...state,
+      books:data.items
+    });
+  console.log(state.books); 
      
+}).then(err=>{
+console.log(err)
 })
   
 }
@@ -35,14 +65,14 @@ const fetchAPI = () => {
  
 return (
     <Fragment>
-      <Navbar />
+      <Navbar onTextChange={onTextChange} submit={handleSubmit}  />
       <div className="container">
         <div className="row">
-          <div className="col-sm-3">
-            categorie
+          <div className="col-md-3">
+           <Sidebar/>
           </div>
-          <div className="col-sm-9">
-          <BooksList books={books}/>
+          <div className=" col-sm-12 col-md-9">
+          <BooksList books={state.books} />
            </div>
         </div>
       </div>

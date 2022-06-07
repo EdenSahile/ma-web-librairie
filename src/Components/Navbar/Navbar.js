@@ -1,6 +1,9 @@
 import React from 'react';
 import '../../App.css'
-const Navbar = () => {
+const Navbar = ({onTextChange,query,setInput}) => {
+
+  
+
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-green fixed-top">
         <div className="container-fluid">
@@ -36,14 +39,17 @@ const Navbar = () => {
                 </a>
               </li>
             </ul>
-            <form className="form d-flex ">
+            <form className="form d-flex " >
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="ex: ean-titre-nom auteur ..."
                 aria-label="Search"
+                onChange={(e)=>onTextChange(e)}
               />
-              <button className="btn btn-outline-light" type="submit">
+              <button className="btn btn-outline-light" 
+              type="submit"
+              >
                 Rechercher
               </button>
             </form>
