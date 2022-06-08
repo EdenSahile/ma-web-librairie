@@ -63,6 +63,17 @@ body {
 .card-auteur-name{
   font-family: 'roboto slab';
 }
+
+.card-desc{
+  font-family: 'roboto-slab';
+  font-size:16px;
+  
+}
+.card-prix{
+ 
+  
+
+}
  .login {
   display: inline-block;
   margin-top: 5px;

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../App.css'
-const Navbar = ({onTextChange,query,setInput}) => {
+const Navbar = ({onTextChange,query,submit}) => {
 
   
 
@@ -8,7 +8,7 @@ const Navbar = ({onTextChange,query,setInput}) => {
       <nav className="navbar navbar-expand-lg navbar-light bg-green fixed-top">
         <div className="container-fluid">
           <a to="/" className="navbar-brand">
-            <i className="fas fa-shopping-cart me-2"></i> Ma web librairie{" "}
+            <i className="fas fa-shopping-cart me-2"></i> Ma E-book librairie{" "}
           </a>
           <button
             className="navbar-toggler"
@@ -39,12 +39,13 @@ const Navbar = ({onTextChange,query,setInput}) => {
                 </a>
               </li>
             </ul>
-            <form className="form d-flex " >
+            <form className="form d-flex " onSubmit={(e)=>submit(e)} >
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="ex: ean-titre-nom auteur ..."
                 aria-label="Search"
+               value={query}
                 onChange={(e)=>onTextChange(e)}
               />
               <button className="btn btn-outline-light" 

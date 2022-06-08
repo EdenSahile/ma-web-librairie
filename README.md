@@ -18,7 +18,6 @@
 ## Fonctionnalités souhaitées : 
 
 - [ ] Recherche par titre, code ean , auteur ...l'app doit afficher le ou les livre(s) en fonction de ce qui a été tapé dans l'input.
-- [ ] Lors d'un clic sur une catégorie, afficher les livres correspondants
 - [ ] Menu : lorsque l'on clique sur un lien du menu, nous sommes redirigés vers la route concernée sans que la page soit rechargée
 - [ ] un clic sur le bouton 'en savoir plus' doit ouvrir une modal avec les informations suivantes "couverture,titre, auteur,description, nombre de pages,prix.
 - [ ] dans la modal, il doit y avoir un bouton commander qui redirige vers le panier.
