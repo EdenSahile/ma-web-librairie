@@ -8,17 +8,18 @@ export const BooksList = ({ books }) => {
 
       {books.map((book,key) => {
 
+            console.log(book.volumeInfo.title);
 
 
         return (
           <CardBook
             alltitre={book.volumeInfo.title}
-             titre={book.volumeInfo.title.substr(0,25)}
+             titre={book.volumeInfo.title.slice([0],[25])}
             alt={book.volumeInfo.title}
             key={book.id}
             datePublication={book.volumeInfo.publishedDate}
             description={book.volumeInfo.description}
-            descriptioncut={book.volumeInfo.description.substr(0,70)}
+            descriptioncut={book.volumeInfo.description.slice([0],[70])}
             categories={book.volumeInfo.categories}
             editeur={book.volumeInfo.publisher}
            prix={book.saleInfo.listPrice.amount}

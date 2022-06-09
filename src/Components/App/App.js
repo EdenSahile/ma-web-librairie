@@ -3,6 +3,7 @@ import {useEffect,useState}from 'react'
 import Navbar from '../Navbar/Navbar'
 import '../../App.css';
 import { BooksList } from '../BooksList/BooksList';
+import axios from 'axios';
 
 
 
@@ -19,6 +20,8 @@ const App=()=> {
     books:[],
     query:""
   })
+
+  
   
 
 const onTextChange=e=>{
@@ -35,11 +38,12 @@ const onTextChange=e=>{
 
 const handleSubmit=(e)=>{
   e.preventDefault();
-  fetchAPI();
 
-   setState({
+ fetch()
+
+  setState({
      ...state,
-     query:" ",
+     query:"",
    })
 
 
@@ -50,27 +54,56 @@ const handleSubmit=(e)=>{
   
 },[]);
 
-const fetchAPI = () => { 
-    const url = `${constants.BaseURL}q=${state.query}&maxResults=40&projection=full&filter=paid-ebooks&key=${constants.APIKey}`;
-console.log(url)
-    fetch(url)
-      .then(response => {
-        if(!response.ok) {
-          console.log(response.statusText);
-          return
-        }
-        return response.json();
-      })
-      .then(data => {
+
+const fetch =()=>{
+
+  const url = `${constants.BaseURL}q=${state.query}&maxResults=40&projection=full&filter=paid-ebooks&key=${constants.APIKey}`;
+  
+  axios.get(url)
+    .then((response) => {
+      setState({
+        ...state,
+        books: response.data.items,
+      });
+      console.log(response.data.items);
+    })
+    .catch((error) => {
+
+     if (error.response) {
+      console.log(error.response.status);
+     } else if (error.request) {
+       
+       console.log(error.request);
+     } else {
       
-    setState({
-      ...state,
-      books:data.items,
+       console.log("Error", error.message);
+     }
+     console.log(error.config);
+    });
+} 
 
-   })
-   })
+// const fetchAPI = () => { 
+// const url = `${constants.BaseURL}q=${state.query}&maxResults=40&projection=full&filter=paid-ebooks&key=${constants.APIKey}`;
+// console.log(url)
+//     fetch(url)
+//       .then(response => {
+//         if(!response.ok) {
+//           console.log(response.statusText);
+//           return
+//         }
+//         return response.json();
+//       })
+//       .then(data => {
+      
+//     setState({
+//       ...state,
+//       books:data.items,
 
-}
+//    })
+//    })
+
+// }
+
  
  
 return (
